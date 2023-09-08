@@ -1,4 +1,5 @@
 from inout import IO
+import customErrors
 
 
 class CSV(IO):
@@ -12,7 +13,7 @@ class CSV(IO):
             line_arr = self.lines[i].split(",")
             line_arr[-1] = line_arr[-1].replace("\n", "")
             if len(line_arr) != 7:
-                self.setError("Struct of Demographic CSV is broken", "CSV")
+                raise customErrors.BrokeDemographicFileStruct
             if i == 0:
                 self.header = line_arr
             if (self.region is not None and line_arr[1] == self.region) or self.region is None:

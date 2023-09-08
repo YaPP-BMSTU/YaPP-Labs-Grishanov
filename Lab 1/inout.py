@@ -1,36 +1,28 @@
 import os.path
 
-from error import Error
+from infoMsg import InfoMessage
+import customErrors
 
 MAX_FILESIZE = 1.28e+8
 
 
-class IO(Error):
+class IO(InfoMessage):
     def __init__(self, filepath):
         super().__init__()
-        self.lines = None
         self.filepath = filepath
-        self.csvTable = None
-        self.header = None
-        self.region = None
-        self.minValue = None
-        self.maxValue = None
-        self.mediumValue = 0
-        self.medianValue = 0
-        self.percentileTable = [0 for k in range(0, 20)]
 
     def checkFile(self):
         if not os.path.exists(self.filepath):
-            self.setError("Filepath is wrong!", "In/Out")
-            return
+            raise customErrors.WrongFilepath()
+        if self.filepath[len(self.filepath)-4:len(self.filepath)] != ".csv":
+            raise customErrors.WrongFileExtension
         if os.path.getsize(self.filepath) > MAX_FILESIZE:
-            self.setError("Your File is too big!", "In/Out")
-            return
+            raise customErrors.FileTooBig()
         if os.path.getsize(self.filepath) == 0:
-            self.setError("Your file is empty!", "In/Out")
-            return
+            raise customErrors.EmptyFile()
 
     def ReadFile(self):
+        self.checkFile()
         with open(self.filepath) as f:
             lines = f.readlines()
         f.close()
