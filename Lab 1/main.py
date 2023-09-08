@@ -1,16 +1,13 @@
-from inout import IO
-from csv import Csv
 from usecase import UseCase
+from app import App
 
 
 def main():
-    i = IO("for2lab.csv")
-    data = i.readfile()
-    csv = Csv(data)
-    table = csv.CreateCSVTable()
-    usecase = UseCase(table, data)
-    print(usecase.calc_col_metrics(4))
-    i.printTable(table)
+    print("Hi, please input filepath to .csv file")
+    print("> ", end="")
+    filepath = input()
+    app = App(filepath)
+    app.start()
 
 
 if __name__ == "__main__":

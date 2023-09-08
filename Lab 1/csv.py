@@ -1,25 +1,21 @@
-class Csv:
-    def __init__(self, lines, csv_table=None):
-        self.csv_table = csv_table
-        self.lines = lines
-        self.length = len(lines)
+from inout import IO
 
-    def CheckRecords(self):
-        # Records
-        pass
 
-    def GetHeader(self):
-        return self.lines[0]
-
-    def GetAllRecords(self):
-        return self.lines[1:self.length].replace("\n", "")
+class CSV(IO):
+    def __init__(self, filepath, csv_table=None):
+        super().__init__(filepath)
+        self.csvTable = csv_table
 
     def CreateCSVTable(self):
         csv_table = []
-        for line in self.lines:
-            line_arr = line.split(",")
+        for i in range(0, len(self.lines)):
+            line_arr = self.lines[i].split(",")
             line_arr[-1] = line_arr[-1].replace("\n", "")
-            csv_table.append(line_arr)
-        self.csv_table = csv_table
+            if len(line_arr) != 7:
+                self.setError("Struct of Demographic CSV is broken", "CSV")
+            if i == 0:
+                self.header = line_arr
+            if (self.region is not None and line_arr[1] == self.region) or self.region is None:
+                csv_table.append(line_arr)
+        self.csvTable = csv_table
         return csv_table
-
