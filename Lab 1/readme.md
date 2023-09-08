@@ -1,6 +1,6 @@
 # Lab 1 - Языки прикладного программирования
 **Иллюстрация архитектуры:**
-![](img/lab1.png)
+![](https://hackmd-prod-images.s3-ap-northeast-1.amazonaws.com/uploads/upload_b59d4b19264988cdd48958ea6d8cac3d.png?AWSAccessKeyId=AKIA3XSAAW6AWSKNINWO&Expires=1694182737&Signature=sS%2BQtZmOfWtZbmHoSOaAQbsQUWU%3D)
 
 В основу легла идея луковой архитектуры, представленной Uncle Bob, которая по пути превратилась в что то большее
 
