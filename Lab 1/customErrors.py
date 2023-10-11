@@ -32,3 +32,9 @@ class WrongFileExtension(Exception):
     def __init__(self, message="Wrong file extension! Use only .csv file"):
         self.message = message
         super().__init__(self.message)
+
+
+class IncorrectHeader(Exception):
+    def __init__(self, message="Incorrect header in .csv file"):
+        self.message = message
+        super().__init__(self.message)

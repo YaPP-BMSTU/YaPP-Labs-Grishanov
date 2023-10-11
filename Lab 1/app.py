@@ -1,26 +1,6 @@
 from usecase import UseCase
 
-art = """  ,---------------------------,
-  |  /---------------------\  |
-  | |                       | |
-  | |     YaPP Lab1         | |
-  | |      CSV Reader       | |
-  | |       Grishanov       | |
-  | |                       | |
-  |  \_____________________/  |
-  |___________________________|
-,---\_____     []     _______/------,
-/         /______________\           /|
-/___________________________________ /  | ___
-|                                   |   |    )
-|  _ _ _                 [-------]  |   |   (
-|  o o o                 [-------]  |  /    _)_
-|__________________________________ |/     /  /
-/-------------------------------------/|      ( )/
-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /
-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+art = """
 Select item menu:
 0) Exit
 1) Exec program
@@ -36,21 +16,23 @@ class App(UseCase):
         self.point = None
 
     def start(self):
+        flagExternal = 1
         self.checkFile()
-        while 1:
+        while flagExternal:
+            flagInternal = 1
             self.checkInfoMsg()
             self.clearInfo()
             print(art)
-            while 1:
+            while flagInternal:
                 try:
                     self.point = int(input("Choose menu point:\n> "))
-                    break
+                    flagInternal = 0
                 except Exception as err:
                     print(err)
                     print("Use correct symbols")
                     self.point = 0
             if self.point == 0:
-                break
+                flagExternal = 0
             else:
                 self.menu()
 
@@ -82,10 +64,13 @@ class App(UseCase):
             self.col = None
 
     def exec(self):
-        self.ReadFile()
-        self.CreateCSVTable()
-        self.PrintTable()
-        self.CalcColMetrics()
-        self.PrintMetrics()
-        self.CalcPercentileTable()
-        self.PrintPercentileTable()
+        try:
+            self.ReadFile()
+            self.CreateCSVTable()
+            self.PrintTable()
+            self.CalcColMetrics()
+            self.PrintMetrics()
+            self.CalcPercentileTable()
+            self.PrintPercentileTable()
+        except Exception as err:
+            print(err)
